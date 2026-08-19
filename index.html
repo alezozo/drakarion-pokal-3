@@ -3,235 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06130e">
-<title>DRAKARION POKAL 3</title>
+<meta name="theme-color" content="#04110b">
+<title>DRAKARION POKAL 3 — Local</title>
 <style>
-:root{--bg:#030806;--panel:#091710;--panel2:#0d2117;--jade:#25f19f;--jade2:#0ba96c;--gold:#e4bf62;--gold2:#8f6a29;--text:#f5f8f5;--muted:#93aa9d;--green:#25bd65;--blue:#338ad7;--orange:#e18a32;--red:#d54a4a;--line:#244635;--shadow:0 16px 46px #0009}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}body{background:radial-gradient(circle at 50% -20%,#0b57386b,transparent 42%),linear-gradient(#020604,#030806 45%,#020503)}button,input,select{font:inherit}.wrap{max-width:1180px;margin:auto;padding:12px 12px 92px}.top{position:sticky;top:0;z-index:50;background:#030806eF;backdrop-filter:blur(12px);border-bottom:1px solid #8f6a2945}.topin{max-width:1180px;margin:auto;display:flex;gap:10px;align-items:center;padding:9px 12px}.mark{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold);box-shadow:0 0 22px #25f19f55;display:grid;place-items:center;color:var(--jade);font-weight:900}.brand{flex:1}.brand b{font-family:Georgia,serif;color:var(--gold);letter-spacing:.06em}.brand small{display:block;color:var(--muted)}.btn{border:1px solid #2e5a44;background:#0a1d14;color:#eaf6ef;border-radius:11px;padding:9px 12px;font-weight:800;cursor:pointer}.btn:hover{border-color:var(--jade)}.btn.jade{background:linear-gradient(#1ac985,#08774d);border-color:#34efa6;color:#fff}.btn.gold{background:linear-gradient(#b48736,#6c4b18);border-color:#e4bf62;color:white}.btn.red{background:#5c2020;border-color:#a94646}.btn.sm{padding:6px 9px;font-size:12px}.hero{border:1px solid #a77a374c;border-radius:24px;overflow:hidden;padding:28px 18px;background:
-radial-gradient(circle at 15% 20%,#16d98b3d,transparent 22%),
-radial-gradient(circle at 85% 30%,#16d98b2e,transparent 24%),
-linear-gradient(135deg,#071a11,#031008 55%,#0b1b12);box-shadow:var(--shadow);position:relative}.hero:after{content:"";position:absolute;inset:7px;border:1px solid #25f19f29;border-radius:18px;pointer-events:none}.hero h1{margin:0;font-family:Georgia,serif;color:var(--gold);font-size:clamp(30px,7vw,62px);text-shadow:0 4px 20px #000}.hero h2{margin:4px 0 0;color:var(--jade);font-family:Georgia,serif;font-size:clamp(17px,4vw,27px)}.hero p{color:#bfd0c6;max-width:740px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{font-size:11px;border:1px solid #826528;background:#020b07b8;padding:6px 9px;border-radius:999px;color:#ddca8c}.section{margin-top:18px}.stitle{display:flex;align-items:center;gap:9px;margin:0 0 9px}.stitle h2{margin:0;font-family:Georgia,serif;color:var(--gold);font-size:21px}.stitle:after{content:"";height:1px;background:linear-gradient(90deg,#8b672a,transparent);flex:1}.grid{display:grid;gap:10px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.card{background:linear-gradient(#0c1f16,#06110c);border:1px solid #9f79332f;border-radius:16px;padding:13px;box-shadow:0 12px 30px #0004}.stat small{color:var(--muted);text-transform:uppercase;letter-spacing:.07em}.stat strong{display:block;color:var(--gold);font-size:28px;margin-top:3px}.tablewrap{overflow:auto;border:1px solid #9f79332f;border-radius:15px;background:#030b07}table{border-collapse:collapse;width:100%;min-width:760px}th,td{padding:9px 8px;border-bottom:1px solid #25443366;text-align:center;font-size:12px}th{position:sticky;top:0;background:#0e2017;color:#e4c676;z-index:2}td.name{text-align:left;font-weight:850}.teamcell{display:flex;align-items:center;gap:8px}.logo{width:31px;height:31px;object-fit:cover;border-radius:50%;border:1px solid #47705a;background:#10261a}.z1{background:linear-gradient(90deg,#25bd6540,#25bd6509)}.z2{background:linear-gradient(90deg,#338ad73e,#338ad709)}.z3{background:linear-gradient(90deg,#e18a323b,#e18a3208)}.z4{background:linear-gradient(90deg,#d54a4a32,#d54a4a08)}.legend{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px}.legend>div{font-size:10px;border-radius:10px;padding:8px;border:1px solid #ffffff12}.legend b{display:block;font-size:11px}.tabs{display:flex;gap:6px;overflow:auto;padding-bottom:5px}.tab{white-space:nowrap;border:1px solid #31533f;background:#06130d;color:#a9bdb1;border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer}.tab.active{background:#08774d;border-color:#25f19f;color:white}.matches{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.match{border:1px solid #31533f;border-radius:14px;padding:12px;background:#06140e}.mh{display:flex;justify-content:space-between;gap:8px;align-items:center}.score{font-size:22px;color:var(--gold);font-weight:950}.teams{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center;margin:9px 0}.teams .h{text-align:right}.teams .a{text-align:left}.state{font-size:9px;padding:4px 6px;border-radius:999px;background:#26382d;color:#c1d1c7;font-weight:900;text-transform:uppercase}.state.final{background:#12492f;color:#76f6ba}.state.ff{background:#654211;color:#ffd98d}.empty{padding:22px;border:1px dashed #31513f;border-radius:14px;text-align:center;color:#82998c}.teamgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.teamcard{border:1px solid #2a4e3b;background:#07160f;border-radius:15px;padding:11px}.teamcard img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:1px solid #557b66;background:#10271b}.teamcard h3{margin:8px 0 4px}.muted{color:var(--muted);font-size:12px}.nav{position:fixed;bottom:0;left:0;right:0;z-index:60;background:#030806f2;backdrop-filter:blur(13px);border-top:1px solid #8f6a2945;padding-bottom:max(5px,env(safe-area-inset-bottom))}.navin{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(6,1fr)}.nav button{border:0;background:none;color:#81968a;padding:8px 2px;font-size:9px;font-weight:800}.nav button span{display:block;font-size:18px}.nav button.active{color:var(--jade)}.screen{display:none}.screen.active{display:block}.modal{position:fixed;inset:0;z-index:100;background:#000c;display:none;align-items:flex-end;justify-content:center;padding:8px}.modal.show{display:flex}.mbox{width:min(900px,100%);max-height:94vh;overflow:auto;background:linear-gradient(#102319,#05110b);border:1px solid #a57c35;border-radius:20px 20px 12px 12px;padding:14px}.mhead{position:sticky;top:-14px;background:#0d1e16;display:flex;gap:8px;align-items:center;padding:12px 0;z-index:3}.mhead h3{margin:0;flex:1;color:var(--gold)}.field{width:100%;border:1px solid #315743;background:#04110b;color:white;border-radius:10px;padding:9px;outline:none}.field:focus{border-color:var(--jade)}label{display:block;color:#b8cabf;font-size:11px;margin:7px 0 4px}.duel{display:grid;grid-template-columns:28px 1fr 55px 15px 55px 1fr;gap:5px;align-items:center;padding:6px 0;border-bottom:1px solid #ffffff0d}.duel .field{padding:7px;font-size:11px}.roster{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.notice{border-left:4px solid var(--gold);background:#e4bf6212;border-radius:9px;padding:9px 10px;color:#d5c697;font-size:11px}.adminonly{display:none}.admin .adminonly{display:inline-flex}.admin .adminonly.block{display:block}.pubonly{display:block}.admin .pubonly{display:none}.search{width:100%;margin-bottom:9px}.history{font-size:11px}.history div{padding:6px 0;border-bottom:1px solid #ffffff0d}.toast{position:fixed;top:68px;right:10px;z-index:200;background:#10271b;border:1px solid #3f7659;border-radius:11px;padding:10px 12px;box-shadow:var(--shadow);display:none;max-width:320px}.toast.show{display:block}.finalstage{border:1px solid #2f513f;border-radius:14px;padding:11px;background:#07150f;margin-bottom:10px}.finalstage h3{color:var(--gold);margin:0 0 9px}.footer-note{font-size:10px;color:#789084;text-align:center;padding:18px 6px}
-@media(max-width:820px){.g4{grid-template-columns:repeat(2,1fr)}.g3,.g2,.matches,.teamgrid{grid-template-columns:1fr}.legend{grid-template-columns:1fr 1fr}.wrap{padding-left:9px;padding-right:9px}.topin{padding-left:9px;padding-right:9px}.duel{grid-template-columns:24px 1fr 45px 12px 45px 1fr}.roster{grid-template-columns:1fr}.hideMob{display:none}}
-@media(min-width:900px){.nav{position:sticky;top:57px;bottom:auto;border-top:0;border-bottom:1px solid #8f6a2945;margin-bottom:12px}.wrap{padding-bottom:30px}.modal{align-items:center}.mbox{border-radius:20px}}
-</style>
-</head>
-<body>
-<div class="top"><div class="topin">
-  <div class="mark">龍</div>
-  <div class="brand"><b>DRAKARION POKAL 3</b><small>Dinastía del Dragón de Jade</small></div>
-  <button class="btn sm gold" id="adminOpen">🔐 Admin</button>
-  <button class="btn sm red adminonly" id="logout">Salir</button>
-</div></div>
-
-<div class="nav"><div class="navin">
-<button data-s="home" class="active"><span>🐉</span>Inicio</button>
-<button data-s="table"><span>🏆</span>Tabla</button>
-<button data-s="rounds"><span>⚔️</span>Fechas</button>
-<button data-s="finals"><span>👑</span>Finales</button>
-<button data-s="teams"><span>🛡️</span>Equipos</button>
-<button data-s="more"><span>⚙️</span>Más</button>
-</div></div>
-
-<main class="wrap" id="root">
-<section id="home" class="screen active">
-  <div class="hero">
-    <h1>DRAKARION POKAL 3</h1><h2>DINASTÍA DEL DRAGÓN DE JADE</h2>
-    <p>20 clanes. 5 fechas. Una sola dinastía. Tabla, resultados y fase final en vivo.</p>
-    <div class="chips"><span class="chip">20 EQUIPOS</span><span class="chip">5 FECHAS</span><span class="chip">10 VS 10</span><span class="chip">3–1–0</span></div>
-  </div>
-  <div class="section"><div class="stitle"><h2>Estado del torneo</h2></div><div id="stats" class="grid g4"></div></div>
-  <div class="section"><div class="stitle"><h2>Últimos resultados</h2></div><div id="latest" class="matches"></div></div>
-</section>
-
-<section id="table" class="screen">
- <div class="stitle"><h2>Clasificación general</h2></div>
- <div class="card"><div class="tablewrap"><table><thead><tr><th>POS</th><th>EQUIPO</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DIF</th><th>PTS</th></tr></thead><tbody id="tbody"></tbody></table></div>
- <div class="legend"><div class="z1"><b>🟢 1.º</b>Cuartos + inscripción pagada</div><div class="z2"><b>🔵 2.º–4.º</b>Cuartos directos</div><div class="z3"><b>🟠 5.º–12.º</b>Playoffs</div><div class="z4"><b>🔴 13.º–20.º</b>Eliminados</div></div>
- <div style="margin-top:9px"><button class="btn sm gold" id="imgBtn">📸 Generar imagen 9:16</button></div></div>
-</section>
-
-<section id="rounds" class="screen">
- <div class="stitle"><h2>Fechas</h2></div><div class="tabs" id="roundTabs"></div><div id="roundMatches" class="matches"></div>
-</section>
-
-<section id="finals" class="screen">
- <div class="stitle"><h2>Fase final</h2></div>
- <div class="notice">1–4 directo a cuartos · 5–12 playoffs · los cruces se eligen manualmente.</div>
- <div id="finalWrap" style="margin-top:10px"></div>
-</section>
-
-<section id="teams" class="screen">
- <div class="stitle"><h2>Equipos y plantillas</h2></div>
- <input id="teamSearch" class="field search" placeholder="Buscar equipo o jugador…">
- <div id="teamGrid" class="teamgrid"></div>
-</section>
-
-<section id="more" class="screen">
- <div class="stitle"><h2>Administración</h2></div>
- <div class="card">
-   <div class="pubonly notice">La web pública es de solo lectura. Para editar necesitas entrar como administrador.</div>
-   <div class="adminonly block">
-     <h3 style="color:var(--gold)">Modo administrador</h3>
-     <p class="muted">Tus cambios quedan como borrador hasta que pulses <b>Publicar cambios</b>. Entonces se guardan en este repositorio de GitHub y todos los espectadores los verán.</p>
-     <button class="btn jade" id="publishBtn">🚀 Publicar cambios</button>
-     <button class="btn" id="reloadBtn">↻ Recargar datos públicos</button>
-     <button class="btn" id="exportBtn">⬇️ Copia JSON</button>
-     <label>Importar copia JSON</label><input type="file" id="importFile" class="field" accept=".json,application/json">
-   </div>
- </div>
- <div class="section"><div class="stitle"><h2>Historial reciente</h2></div><div class="card history" id="audit"></div></div>
- <div class="footer-note">Drakarion Pokal 3 · GitHub Pages · Sin servidor de pago</div>
-</section>
-</main>
-
-<div class="modal" id="adminModal"><div class="mbox">
- <div class="mhead"><h3>Acceso administrador</h3><button class="btn sm" data-close="adminModal">✕</button></div>
- <div class="notice">El PIN es tu acceso visual. La seguridad real de escritura la da un token de GitHub limitado únicamente a este repositorio. El token se guarda solo en esta pestaña del navegador.</div>
- <label>PIN de 6 dígitos</label><input id="pin" class="field" inputmode="numeric" maxlength="6" placeholder="••••••">
- <div class="notice" style="margin-top:10px">El PIN desbloquea la edición en este teléfono. El token de GitHub solo se pedirá cuando quieras PUBLICAR los cambios para todos.</div>
- <div style="margin-top:10px"><button class="btn jade" id="adminLogin">Entrar y editar</button></div>
-</div></div>
-
-<div class="modal" id="teamModal"><div class="mbox">
- <div class="mhead"><h3 id="teamTitle">Equipo</h3><button class="btn sm" data-close="teamModal">✕</button></div>
- <div id="teamEdit"></div>
-</div></div>
-
-<div class="modal" id="matchModal"><div class="mbox">
- <div class="mhead"><h3 id="matchTitle">Enfrentamiento</h3><button class="btn sm" data-close="matchModal">✕</button></div>
- <div id="matchEdit"></div>
-</div></div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-const OWNER="alezozo",REPO="drakarion-pokal-3",BRANCH="main",PIN="135790";
-const teamNames=["Goltyn","The Best","Dogos","Taruzz","Legendarios","VIP Family","AFL","Hernandez","Resistencia","Gods Nahi","Rumbo a LATAM","Requiem","El Congreso","God Level","Vortex","HSV 98 Prime","Halcones","Team Titan","HSV 98","Gods Plan"];
-const f1=[["Goltyn","The Best"],["Dogos","Taruzz"],["Legendarios","VIP Family"],["AFL","Hernandez"],["Resistencia","Gods Nahi"],["Rumbo a LATAM","Requiem"],["El Congreso","God Level"],["Vortex","HSV 98 Prime"],["Halcones","Team Titan"],["HSV 98","Gods Plan"]];
-function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
-function blankMatch(round,phase="swiss",pair=null){return{id:uid(),phase,round,home:pair?pair[0]:"",away:pair?pair[1]:"",status:"pending",ffWinner:"",duels:Array.from({length:10},()=>({hp:"",ap:"",hg:0,ag:0})),updatedAt:null}}
-function makeDefault(){
- const teams=teamNames.map(n=>({name:n,logo:"",players:Array.from({length:12},(_,i)=>"Jugador "+(i+1))}));
- const rounds=Array.from({length:5},(_,r)=>Array.from({length:10},(_,i)=>blankMatch(r+1,"swiss",r===0?f1[i]:null)));
- const finals={playoff:Array.from({length:4},()=>blankMatch(1,"playoff")),quarter:Array.from({length:4},()=>blankMatch(1,"quarter")),semi:Array.from({length:2},()=>blankMatch(1,"semi")),final:[blankMatch(1,"final")]};
- return{version:1,teams,rounds,finals,audit:[{at:new Date().toISOString(),text:"Torneo creado"}],publishedAt:null};
+:root{
+  --bg:#020604;--panel:#07150e;--panel2:#0b2116;--line:#315640;
+  --jade:#22ef9e;--jade2:#0a9a62;--gold:#e4bd60;--gold2:#8d6527;
+  --text:#f5f8f5;--muted:#91a99b;--green:#22b960;--blue:#327ed0;--orange:#dc8330;--red:#c94545;
+  --shadow:0 18px 50px #0009;
 }
-let state=makeDefault(),currentRound=1,isAdmin=false,token="";
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-function toast(s){let t=$("#toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
-function logoOf(name){return state.teams.find(t=>t.name===name)?.logo||""}
-function initials(n){return (n||"?").split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
-function logoHTML(n){let l=logoOf(n);return l?`<img class="logo" src="${l}">`:`<span class="logo" style="display:grid;place-items:center;font-size:10px;font-weight:900">${esc(initials(n))}</span>`}
-function allSwiss(){return state.rounds.flat()}
-function calcScore(m){if(m.status==="ff"){return m.ffWinner===m.home?[1,0]:m.ffWinner===m.away?[0,1]:[0,0]}return m.duels.reduce((a,d)=>[a[0]+(+d.hg||0),a[1]+(+d.ag||0)],[0,0])}
-function finished(m){return m.status==="final"||m.status==="ff"}
-function standings(){
- let x=Object.fromEntries(teamNames.map(n=>[n,{name:n,pj:0,pg:0,pe:0,pp:0,gf:0,gc:0,dif:0,pts:0}]));
- for(let m of allSwiss().filter(finished)){if(!m.home||!m.away||!x[m.home]||!x[m.away])continue;let[a,b]=calcScore(m),h=x[m.home],v=x[m.away];h.pj++;v.pj++;h.gf+=a;h.gc+=b;v.gf+=b;v.gc+=a;if(a>b){h.pg++;v.pp++;h.pts+=3}else if(a<b){v.pg++;h.pp++;v.pts+=3}else{h.pe++;v.pe++;h.pts++;v.pts++}}
- Object.values(x).forEach(t=>t.dif=t.gf-t.gc);
- let arr=Object.values(x);
- const h2h=(a,b)=>{let m=allSwiss().find(m=>finished(m)&&((m.home===a.name&&m.away===b.name)||(m.home===b.name&&m.away===a.name)));if(!m)return 0;let[s1,s2]=calcScore(m),as=a.name===m.home?s1:s2,bs=b.name===m.home?s1:s2;return bs-as}
- arr.sort((a,b)=>b.pts-a.pts||b.dif-a.dif||b.gf-a.gf||a.gc-b.gc||h2h(a,b)||a.name.localeCompare(b.name));
- return arr;
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+body{
+  background:
+    radial-gradient(circle at 50% -10%,#0d53384d,transparent 34%),
+    linear-gradient(180deg,#020604,#030906 55%,#010302);
 }
-function zone(i){return i===0?"z1":i<4?"z2":i<12?"z3":"z4"}
-function recordAudit(text){state.audit.unshift({at:new Date().toISOString(),text});state.audit=state.audit.slice(0,60);saveDraft()}
-function saveDraft(){if(isAdmin)localStorage.setItem("drakDraft",JSON.stringify(state))}
-function setAdmin(v){isAdmin=v;document.body.classList.toggle("admin",v);$("#adminOpen").style.display=v?"none":"";renderAll()}
-async function loadPublic(){
- try{let r=await fetch("./data.json?ts="+Date.now(),{cache:"no-store"});if(r.ok){state=await r.json();toast("Datos públicos cargados")}else{state=makeDefault()}}catch{state=makeDefault()}
- if(isAdmin){let d=localStorage.getItem("drakDraft");if(d)try{state=JSON.parse(d)}catch{}}
- renderAll()
+button,input,select{font:inherit}
+button{cursor:pointer}
+#app{min-height:100vh}
+.top{
+  position:sticky;top:0;z-index:40;background:#020604ee;backdrop-filter:blur(12px);
+  border-bottom:1px solid #8d652743;
 }
-function utf8b64(s){let bytes=new TextEncoder().encode(s),bin="";for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(bin)}
-async function publish(){
- if(!isAdmin)return toast("Entra como administrador");
- if(!token){
-   let t=prompt("Pega tu GitHub Fine-grained token para PUBLICAR estos cambios. No se guardará permanentemente:");
-   if(!t||!t.startsWith("github_"))return toast("Publicación cancelada: falta token");
-   token=t; sessionStorage.setItem("drakToken",t);
- }
- let path="data.json",api=`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
- let sha=null;try{let g=await fetch(api,{headers:{Authorization:`Bearer ${token}`,Accept:"application/vnd.github+json"}});if(g.ok)sha=(await g.json()).sha}catch{}
- state.publishedAt=new Date().toISOString();
- let body={message:"Actualizar Drakarion Pokal 3",content:utf8b64(JSON.stringify(state)),branch:BRANCH};if(sha)body.sha=sha;
- let r=await fetch(api,{method:"PUT",headers:{Authorization:`Bearer ${token}`,Accept:"application/vnd.github+json","Content-Type":"application/json"},body:JSON.stringify(body)});
- if(!r.ok){let e=await r.text();console.error(e);return toast("No se pudo publicar. Revisa el token")}
- localStorage.setItem("drakDraft",JSON.stringify(state));toast("✅ Cambios publicados para todos");renderAll()
+.topin{max-width:1180px;margin:auto;display:flex;align-items:center;gap:10px;padding:9px 12px}
+.brandmark{
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  border:2px solid var(--gold);color:var(--jade);font-weight:900;
+  background:#03110b;box-shadow:0 0 24px #22ef9e35;
 }
-function nav(s){$$(".screen").forEach(x=>x.classList.toggle("active",x.id===s));$$(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.s===s));window.scrollTo(0,0)}
-$$(".nav button").forEach(b=>b.onclick=()=>nav(b.dataset.s));
-$$("[data-close]").forEach(b=>b.onclick=()=>$("#"+b.dataset.close).classList.remove("show"));
-$("#adminOpen").onclick=()=>$("#adminModal").classList.add("show");
-$("#adminLogin").onclick=()=>{let p=$("#pin").value.trim();if(p!==PIN)return toast("PIN incorrecto");setAdmin(true);$("#adminModal").classList.remove("show");let d=localStorage.getItem("drakDraft");if(d)try{state=JSON.parse(d)}catch{};renderAll();toast("✅ Modo administrador activado: ya puedes editar")};
-$("#logout").onclick=()=>{token="";sessionStorage.removeItem("drakToken");setAdmin(false);loadPublic()};
-$("#publishBtn").onclick=publish;$("#reloadBtn").onclick=()=>{localStorage.removeItem("drakDraft");loadPublic()};
-$("#exportBtn").onclick=()=>{let b=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="drakarion-backup.json";a.click()};
-$("#importFile").onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{state=JSON.parse(r.result);recordAudit("Copia JSON importada");renderAll();toast("Copia importada")}catch{toast("JSON inválido")}};r.readAsText(f)};
-function renderHome(){
- let st=standings(),done=allSwiss().filter(finished),leader=st[0]?.name||"-",active=Math.min(5,Math.max(1,state.rounds.findIndex(r=>r.some(m=>!finished(m)))+1||5));
- $("#stats").innerHTML=[
- ["Líder",leader],["Fecha activa",active+"/5"],["Enfrentamientos",done.length+"/50"],["Última publicación",state.publishedAt?new Date(state.publishedAt).toLocaleString():"Sin publicar"]
- ].map(x=>`<div class="card stat"><small>${esc(x[0])}</small><strong style="font-size:${x[0]==="Líder"?"18px":"26px"}">${esc(x[1])}</strong></div>`).join("");
- let latest=done.sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||"")).slice(0,6);$("#latest").innerHTML=latest.length?latest.map(matchCard).join(""):`<div class="empty">Todavía no hay resultados finalizados.</div>`;
-}
-function renderTable(){
- $("#tbody").innerHTML=standings().map((t,i)=>`<tr class="${zone(i)}"><td><b>${i+1}</b></td><td class="name"><div class="teamcell">${logoHTML(t.name)}<span>${esc(t.name)}</span></div></td><td>${t.pj}</td><td>${t.pg}</td><td>${t.pe}</td><td>${t.pp}</td><td>${t.gf}</td><td>${t.gc}</td><td>${t.dif>0?"+":""}${t.dif}</td><td><b>${t.pts}</b></td></tr>`).join("")
-}
-function matchCard(m){
- let[a,b]=calcScore(m),label=m.status==="final"?"Finalizado":m.status==="ff"?"FF":"Pendiente";
- return `<div class="match"><div class="mh"><span class="state ${m.status}">${label}</span><span class="score">${finished(m)?a+" – "+b:"—"}</span></div><div class="teams"><div class="h">${esc(m.home||"Por definir")}</div><b>VS</b><div class="a">${esc(m.away||"Por definir")}</div></div>${isAdmin?`<button class="btn sm jade" onclick="openMatch('${m.id}')">Editar</button>`:""}</div>`
-}
-function renderRounds(){
- $("#roundTabs").innerHTML=Array.from({length:5},(_,i)=>`<button class="tab ${currentRound===i+1?"active":""}" onclick="currentRound=${i+1};renderRounds()">Fecha ${i+1}</button>`).join("");
- $("#roundMatches").innerHTML=state.rounds[currentRound-1].map(matchCard).join("")
-}
-function allFinalMatches(){return Object.values(state.finals).flat()}
-function renderFinals(){
- let groups=[["playoff","PLAYOFFS 5–12"],["quarter","CUARTOS"],["semi","SEMIFINALES"],["final","GRAN FINAL"]];
- $("#finalWrap").innerHTML=groups.map(([k,n])=>`<div class="finalstage"><h3>${n}</h3><div class="matches">${state.finals[k].map(matchCard).join("")}</div></div>`).join("")
-}
-function teamHistory(n){
- let all=[...allSwiss(),...allFinalMatches()].filter(m=>finished(m)&&(m.home===n||m.away===n));
- if(!all.length)return`<div class="muted">Sin partidos finalizados.</div>`;
- return all.slice(-8).reverse().map(m=>{let[a,b]=calcScore(m),mine=m.home===n?a:b,opp=m.home===n?b:a,r=m.home===n?m.away:m.home;return`<div>vs ${esc(r)} · <b>${mine}-${opp}</b> · ${mine>opp?"✅":mine<opp?"❌":"➖"}</div>`}).join("")
-}
-function renderTeams(filter=""){
- let q=filter.toLowerCase();$("#teamGrid").innerHTML=state.teams.filter(t=>!q||t.name.toLowerCase().includes(q)||t.players.some(p=>p.toLowerCase().includes(q))).map(t=>`<div class="teamcard">${t.logo?`<img src="${t.logo}">`:`<div class="logo" style="width:60px;height:60px;display:grid;place-items:center;font-weight:900">${initials(t.name)}</div>`}<h3>${esc(t.name)}</h3><div class="muted">${t.players.filter(Boolean).length}/12 jugadores</div><div class="history">${teamHistory(t.name)}</div>${isAdmin?`<button class="btn sm jade" onclick="openTeam('${encodeURIComponent(t.name)}')">Editar equipo</button>`:""}</div>`).join("")
-}
-$("#teamSearch").oninput=e=>renderTeams(e.target.value);
-function renderAudit(){$("#audit").innerHTML=(state.audit||[]).slice(0,20).map(x=>`<div><b>${new Date(x.at).toLocaleString()}</b><br>${esc(x.text)}</div>`).join("")||"Sin cambios."}
-function renderAll(){renderHome();renderTable();renderRounds();renderFinals();renderTeams($("#teamSearch")?.value||"");renderAudit()}
-function openTeam(enc){
- let name=decodeURIComponent(enc),t=state.teams.find(x=>x.name===name);if(!t)return;$("#teamTitle").textContent=t.name;
- $("#teamEdit").innerHTML=`<div style="display:flex;gap:12px;align-items:center"><div>${t.logo?`<img src="${t.logo}" style="width:86px;height:86px;border-radius:50%;object-fit:cover;border:1px solid #557b66">`:`<div class="logo" style="width:86px;height:86px;display:grid;place-items:center">${initials(t.name)}</div>`}</div><div style="flex:1"><label>Subir / reemplazar logo</label><input type="file" id="logoFile" class="field" accept="image/*"><button class="btn sm red" id="delLogo" style="margin-top:6px">Quitar logo</button></div></div><div class="stitle" style="margin-top:14px"><h2>Plantilla 12 jugadores</h2></div><div class="roster">${t.players.map((p,i)=>`<div><label>Jugador ${i+1}</label><input class="field pedit" data-i="${i}" value="${esc(p)}"></div>`).join("")}</div><button class="btn jade" id="saveTeam" style="margin-top:12px">Guardar equipo</button>`;
- $("#logoFile").onchange=e=>resizeImage(e.target.files[0],data=>{t.logo=data;recordAudit("Logo actualizado: "+t.name);openTeam(encodeURIComponent(t.name));renderAll()});
- $("#delLogo").onclick=()=>{t.logo="";recordAudit("Logo eliminado: "+t.name);openTeam(encodeURIComponent(t.name));renderAll()};
- $("#saveTeam").onclick=()=>{$$(".pedit").forEach(i=>t.players[+i.dataset.i]=i.value.trim()||("Jugador "+(+i.dataset.i+1)));recordAudit("Plantilla actualizada: "+t.name);$("#teamModal").classList.remove("show");renderAll();toast("Equipo guardado")};
- $("#teamModal").classList.add("show")
-}
-function resizeImage(file,cb){if(!file)return;let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let c=document.createElement("canvas"),s=180;c.width=c.height=s;let x=c.getContext("2d"),ratio=Math.max(s/im.width,s/im.height),w=im.width*ratio,h=im.height*ratio;x.drawImage(im,(s-w)/2,(s-h)/2,w,h);cb(c.toDataURL("image/jpeg",.78))};im.src=r.result};r.readAsDataURL(file)}
-function findMatch(id){for(let r of state.rounds){let m=r.find(x=>x.id===id);if(m)return m}for(let k in state.finals){let m=state.finals[k].find(x=>x.id===id);if(m)return m}}
-function options(sel=""){return `<option value="">Seleccionar…</option>`+teamNames.map(n=>`<option ${n===sel?"selected":""}>${esc(n)}</option>`).join("")}
-function playerOpts(team,sel=""){let t=state.teams.find(x=>x.name===team);return `<option value="">Jugador…</option>`+(t?t.players.map(p=>`<option ${p===sel?"selected":""}>${esc(p)}</option>`).join(""):"")}
-function openMatch(id){
- let m=findMatch(id);if(!m)return;$("#matchTitle").textContent=(m.phase==="swiss"?"Fecha "+m.round:"Fase final")+" · Enfrentamiento";
- $("#matchEdit").innerHTML=`<div class="grid g2"><div><label>Equipo local</label><select id="mh" class="field">${options(m.home)}</select></div><div><label>Equipo visitante</label><select id="ma" class="field">${options(m.away)}</select></div></div><div class="grid g2"><div><label>Estado</label><select id="ms" class="field"><option value="pending" ${m.status==="pending"?"selected":""}>Pendiente</option><option value="final" ${m.status==="final"?"selected":""}>Finalizado</option><option value="ff" ${m.status==="ff"?"selected":""}>FF</option></select></div><div><label>Ganador FF</label><select id="ff" class="field"><option value="">—</option><option ${m.ffWinner===m.home?"selected":""}>${esc(m.home)}</option><option ${m.ffWinner===m.away?"selected":""}>${esc(m.away)}</option></select></div></div><div class="stitle" style="margin-top:13px"><h2>10 duelos</h2></div><div id="duels">${m.duels.map((d,i)=>`<div class="duel"><b>${i+1}</b><select class="field hp">${playerOpts(m.home,d.hp)}</select><input class="field hg" type="number" min="0" max="99" value="${d.hg}"><b>–</b><input class="field ag" type="number" min="0" max="99" value="${d.ag}"><select class="field ap">${playerOpts(m.away,d.ap)}</select></div>`).join("")}</div><div style="margin-top:12px"><button class="btn jade" id="saveMatch">Guardar enfrentamiento</button></div>`;
- function rebuildPlayers(){let h=$("#mh").value,a=$("#ma").value;$$(".hp").forEach((s,i)=>s.innerHTML=playerOpts(h,m.duels[i].hp));$$(".ap").forEach((s,i)=>s.innerHTML=playerOpts(a,m.duels[i].ap));$("#ff").innerHTML=`<option value="">—</option><option>${esc(h)}</option><option>${esc(a)}</option>`}
- $("#mh").onchange=rebuildPlayers;$("#ma").onchange=rebuildPlayers;
- $("#saveMatch").onclick=()=>{let h=$("#mh").value,a=$("#ma").value,status=$("#ms").value;if(h&&a&&h===a)return toast("Un equipo no puede jugar contra sí mismo");let hp=$$(".hp").map(x=>x.value).filter(Boolean),ap=$$(".ap").map(x=>x.value).filter(Boolean);if(new Set(hp).size!==hp.length||new Set(ap).size!==ap.length)return toast("No repitas jugador en el mismo enfrentamiento");m.home=h;m.away=a;m.status=status;m.ffWinner=$("#ff").value;$$(".duel").forEach((row,i)=>{m.duels[i]={hp:row.querySelector(".hp").value,ap:row.querySelector(".ap").value,hg:+row.querySelector(".hg").value||0,ag:+row.querySelector(".ag").value||0}});if(status==="ff"&&!m.ffWinner)return toast("Selecciona ganador del FF");m.updatedAt=new Date().toISOString();recordAudit(`Resultado actualizado: ${m.home||"?"} vs ${m.away||"?"}`);$("#matchModal").classList.remove("show");renderAll();toast("Enfrentamiento guardado")};
- $("#matchModal").classList.add("show")
-}
-window.openMatch=openMatch;window.openTeam=openTeam;
-function generateImage(){
- let st=standings(),c=document.createElement("canvas");c.width=1080;c.height=1920;let x=c.getContext("2d"),g=x.createLinearGradient(0,0,0,1920);g.addColorStop(0,"#082217");g.addColorStop(.45,"#030b07");g.addColorStop(1,"#010403");x.fillStyle=g;x.fillRect(0,0,1080,1920);x.strokeStyle="#d7ad52";x.lineWidth=5;x.strokeRect(28,28,1024,1864);x.textAlign="center";x.fillStyle="#e4bf62";x.font="bold 74px Georgia";x.fillText("DRAKARION POKAL 3",540,130);x.fillStyle="#25f19f";x.font="bold 31px Georgia";x.fillText("DINASTÍA DEL DRAGÓN DE JADE",540,180);x.fillStyle="#a8bcaf";x.font="24px Arial";x.fillText("CLASIFICACIÓN GENERAL",540,228);
- let y=285,rowH=69;st.forEach((t,i)=>{let col=i===0?"#1b7d46":i<4?"#1c588b":i<12?"#945821":"#7b2929";x.fillStyle=col+"aa";x.fillRect(55,y,970,rowH-5);x.textAlign="left";x.fillStyle="#fff";x.font="bold 26px Arial";x.fillText(String(i+1).padStart(2,"0"),72,y+42);x.font="bold 25px Arial";x.fillText(t.name,130,y+42);x.textAlign="right";x.font="22px Arial";x.fillText(`PJ ${t.pj}   DIF ${t.dif>=0?"+":""}${t.dif}   PTS ${t.pts}`,995,y+42);y+=rowH});
- x.textAlign="center";x.fillStyle="#d5c17f";x.font="22px Arial";x.fillText("1.º Cuartos + inscripción · 2–4 Cuartos · 5–12 Playoffs · 13–20 Eliminados",540,1770);x.fillStyle="#789486";x.font="19px Arial";x.fillText(new Date().toLocaleString(),540,1825);let a=document.createElement("a");a.href=c.toDataURL("image/png");a.download="drakarion-clasificacion.png";a.click()
-}
-$("#imgBtn").onclick=generateImage;
-let sess=sessionStorage.getItem("drakToken");if(sess) token=sess;
-loadPublic();
-</script>
-</body>
-</html>
+.brand{min-width:0;flex:1}
+.brand b{display:block;font-family:Georgia,serif;color:var(--gold);font-size:17px;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;color:var(--muted);font-size:11px}
+.localbadge{border:1px solid #24513b;background:#0a2117;color:#8ff1c4;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;white-space:nowrap}
+.wrap{max-width:1180px;margin:auto;padding:12px 10px 92px}
+.hero{
+  min-height:300px;border-radius:25px;border:1px solid #d1a64d77;overflow:hidden;position:relative;
+  display:flex;align-items:flex-end;padding:22px;
+  background-image:
+    linear-gradient(180deg,#0001,#00170ebd 48%,#020604f2),
+    url("data:image/jpeg;base64,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
