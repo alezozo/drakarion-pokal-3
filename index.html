@@ -88,8 +88,8 @@ linear-gradient(135deg,#071a11,#031008 55%,#0b1b12);box-shadow:var(--shadow);pos
  <div class="mhead"><h3>Acceso administrador</h3><button class="btn sm" data-close="adminModal">✕</button></div>
  <div class="notice">El PIN es tu acceso visual. La seguridad real de escritura la da un token de GitHub limitado únicamente a este repositorio. El token se guarda solo en esta pestaña del navegador.</div>
  <label>PIN de 6 dígitos</label><input id="pin" class="field" inputmode="numeric" maxlength="6" placeholder="••••••">
- <label>GitHub Fine-grained token</label><input id="token" class="field" type="password" placeholder="github_pat_...">
- <div style="margin-top:10px"><button class="btn jade" id="adminLogin">Entrar</button></div>
+ <div class="notice" style="margin-top:10px">El PIN desbloquea la edición en este teléfono. El token de GitHub solo se pedirá cuando quieras PUBLICAR los cambios para todos.</div>
+ <div style="margin-top:10px"><button class="btn jade" id="adminLogin">Entrar y editar</button></div>
 </div></div>
 
 <div class="modal" id="teamModal"><div class="mbox">
@@ -146,7 +146,12 @@ async function loadPublic(){
 }
 function utf8b64(s){let bytes=new TextEncoder().encode(s),bin="";for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(bin)}
 async function publish(){
- if(!isAdmin||!token)return toast("Entra como administrador");
+ if(!isAdmin)return toast("Entra como administrador");
+ if(!token){
+   let t=prompt("Pega tu GitHub Fine-grained token para PUBLICAR estos cambios. No se guardará permanentemente:");
+   if(!t||!t.startsWith("github_"))return toast("Publicación cancelada: falta token");
+   token=t; sessionStorage.setItem("drakToken",t);
+ }
  let path="data.json",api=`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
  let sha=null;try{let g=await fetch(api,{headers:{Authorization:`Bearer ${token}`,Accept:"application/vnd.github+json"}});if(g.ok)sha=(await g.json()).sha}catch{}
  state.publishedAt=new Date().toISOString();
@@ -159,7 +164,74 @@ function nav(s){$$(".screen").forEach(x=>x.classList.toggle("active",x.id===s));
 $$(".nav button").forEach(b=>b.onclick=()=>nav(b.dataset.s));
 $$("[data-close]").forEach(b=>b.onclick=()=>$("#"+b.dataset.close).classList.remove("show"));
 $("#adminOpen").onclick=()=>$("#adminModal").classList.add("show");
-$("#adminLogin").onclick=()=>{let p=$("#pin").value.trim(),t=$("#token").value.trim();if(p!==PIN)return toast("PIN incorrecto");if(!t.startsWith("github_"))return toast("Pega tu token de GitHub");token=t;sessionStorage.setItem("drakToken",t);setAdmin(true);$("#adminModal").classList.remove("show");let d=localStorage.getItem("drakDraft");if(d)try{state=JSON.parse(d)}catch{};renderAll();toast("Modo administrador activado")};
+$("#adminLogin").onclick=()=>{let p=$("#pin").value.trim();if(p!==PIN)return toast("PIN incorrecto");setAdmin(true);$("#adminModal").classList.remove("show");let d=localStorage.getItem("drakDraft");if(d)try{state=JSON.parse(d)}catch{};renderAll();toast("✅ Modo administrador activado: ya puedes editar")};
 $("#logout").onclick=()=>{token="";sessionStorage.removeItem("drakToken");setAdmin(false);loadPublic()};
 $("#publishBtn").onclick=publish;$("#reloadBtn").onclick=()=>{localStorage.removeItem("drakDraft");loadPublic()};
-$("#exportBtn").onclick=()=>{let b=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="drakarion-backup.json";a.click
+$("#exportBtn").onclick=()=>{let b=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="drakarion-backup.json";a.click()};
+$("#importFile").onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{state=JSON.parse(r.result);recordAudit("Copia JSON importada");renderAll();toast("Copia importada")}catch{toast("JSON inválido")}};r.readAsText(f)};
+function renderHome(){
+ let st=standings(),done=allSwiss().filter(finished),leader=st[0]?.name||"-",active=Math.min(5,Math.max(1,state.rounds.findIndex(r=>r.some(m=>!finished(m)))+1||5));
+ $("#stats").innerHTML=[
+ ["Líder",leader],["Fecha activa",active+"/5"],["Enfrentamientos",done.length+"/50"],["Última publicación",state.publishedAt?new Date(state.publishedAt).toLocaleString():"Sin publicar"]
+ ].map(x=>`<div class="card stat"><small>${esc(x[0])}</small><strong style="font-size:${x[0]==="Líder"?"18px":"26px"}">${esc(x[1])}</strong></div>`).join("");
+ let latest=done.sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||"")).slice(0,6);$("#latest").innerHTML=latest.length?latest.map(matchCard).join(""):`<div class="empty">Todavía no hay resultados finalizados.</div>`;
+}
+function renderTable(){
+ $("#tbody").innerHTML=standings().map((t,i)=>`<tr class="${zone(i)}"><td><b>${i+1}</b></td><td class="name"><div class="teamcell">${logoHTML(t.name)}<span>${esc(t.name)}</span></div></td><td>${t.pj}</td><td>${t.pg}</td><td>${t.pe}</td><td>${t.pp}</td><td>${t.gf}</td><td>${t.gc}</td><td>${t.dif>0?"+":""}${t.dif}</td><td><b>${t.pts}</b></td></tr>`).join("")
+}
+function matchCard(m){
+ let[a,b]=calcScore(m),label=m.status==="final"?"Finalizado":m.status==="ff"?"FF":"Pendiente";
+ return `<div class="match"><div class="mh"><span class="state ${m.status}">${label}</span><span class="score">${finished(m)?a+" – "+b:"—"}</span></div><div class="teams"><div class="h">${esc(m.home||"Por definir")}</div><b>VS</b><div class="a">${esc(m.away||"Por definir")}</div></div>${isAdmin?`<button class="btn sm jade" onclick="openMatch('${m.id}')">Editar</button>`:""}</div>`
+}
+function renderRounds(){
+ $("#roundTabs").innerHTML=Array.from({length:5},(_,i)=>`<button class="tab ${currentRound===i+1?"active":""}" onclick="currentRound=${i+1};renderRounds()">Fecha ${i+1}</button>`).join("");
+ $("#roundMatches").innerHTML=state.rounds[currentRound-1].map(matchCard).join("")
+}
+function allFinalMatches(){return Object.values(state.finals).flat()}
+function renderFinals(){
+ let groups=[["playoff","PLAYOFFS 5–12"],["quarter","CUARTOS"],["semi","SEMIFINALES"],["final","GRAN FINAL"]];
+ $("#finalWrap").innerHTML=groups.map(([k,n])=>`<div class="finalstage"><h3>${n}</h3><div class="matches">${state.finals[k].map(matchCard).join("")}</div></div>`).join("")
+}
+function teamHistory(n){
+ let all=[...allSwiss(),...allFinalMatches()].filter(m=>finished(m)&&(m.home===n||m.away===n));
+ if(!all.length)return`<div class="muted">Sin partidos finalizados.</div>`;
+ return all.slice(-8).reverse().map(m=>{let[a,b]=calcScore(m),mine=m.home===n?a:b,opp=m.home===n?b:a,r=m.home===n?m.away:m.home;return`<div>vs ${esc(r)} · <b>${mine}-${opp}</b> · ${mine>opp?"✅":mine<opp?"❌":"➖"}</div>`}).join("")
+}
+function renderTeams(filter=""){
+ let q=filter.toLowerCase();$("#teamGrid").innerHTML=state.teams.filter(t=>!q||t.name.toLowerCase().includes(q)||t.players.some(p=>p.toLowerCase().includes(q))).map(t=>`<div class="teamcard">${t.logo?`<img src="${t.logo}">`:`<div class="logo" style="width:60px;height:60px;display:grid;place-items:center;font-weight:900">${initials(t.name)}</div>`}<h3>${esc(t.name)}</h3><div class="muted">${t.players.filter(Boolean).length}/12 jugadores</div><div class="history">${teamHistory(t.name)}</div>${isAdmin?`<button class="btn sm jade" onclick="openTeam('${encodeURIComponent(t.name)}')">Editar equipo</button>`:""}</div>`).join("")
+}
+$("#teamSearch").oninput=e=>renderTeams(e.target.value);
+function renderAudit(){$("#audit").innerHTML=(state.audit||[]).slice(0,20).map(x=>`<div><b>${new Date(x.at).toLocaleString()}</b><br>${esc(x.text)}</div>`).join("")||"Sin cambios."}
+function renderAll(){renderHome();renderTable();renderRounds();renderFinals();renderTeams($("#teamSearch")?.value||"");renderAudit()}
+function openTeam(enc){
+ let name=decodeURIComponent(enc),t=state.teams.find(x=>x.name===name);if(!t)return;$("#teamTitle").textContent=t.name;
+ $("#teamEdit").innerHTML=`<div style="display:flex;gap:12px;align-items:center"><div>${t.logo?`<img src="${t.logo}" style="width:86px;height:86px;border-radius:50%;object-fit:cover;border:1px solid #557b66">`:`<div class="logo" style="width:86px;height:86px;display:grid;place-items:center">${initials(t.name)}</div>`}</div><div style="flex:1"><label>Subir / reemplazar logo</label><input type="file" id="logoFile" class="field" accept="image/*"><button class="btn sm red" id="delLogo" style="margin-top:6px">Quitar logo</button></div></div><div class="stitle" style="margin-top:14px"><h2>Plantilla 12 jugadores</h2></div><div class="roster">${t.players.map((p,i)=>`<div><label>Jugador ${i+1}</label><input class="field pedit" data-i="${i}" value="${esc(p)}"></div>`).join("")}</div><button class="btn jade" id="saveTeam" style="margin-top:12px">Guardar equipo</button>`;
+ $("#logoFile").onchange=e=>resizeImage(e.target.files[0],data=>{t.logo=data;recordAudit("Logo actualizado: "+t.name);openTeam(encodeURIComponent(t.name));renderAll()});
+ $("#delLogo").onclick=()=>{t.logo="";recordAudit("Logo eliminado: "+t.name);openTeam(encodeURIComponent(t.name));renderAll()};
+ $("#saveTeam").onclick=()=>{$$(".pedit").forEach(i=>t.players[+i.dataset.i]=i.value.trim()||("Jugador "+(+i.dataset.i+1)));recordAudit("Plantilla actualizada: "+t.name);$("#teamModal").classList.remove("show");renderAll();toast("Equipo guardado")};
+ $("#teamModal").classList.add("show")
+}
+function resizeImage(file,cb){if(!file)return;let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let c=document.createElement("canvas"),s=180;c.width=c.height=s;let x=c.getContext("2d"),ratio=Math.max(s/im.width,s/im.height),w=im.width*ratio,h=im.height*ratio;x.drawImage(im,(s-w)/2,(s-h)/2,w,h);cb(c.toDataURL("image/jpeg",.78))};im.src=r.result};r.readAsDataURL(file)}
+function findMatch(id){for(let r of state.rounds){let m=r.find(x=>x.id===id);if(m)return m}for(let k in state.finals){let m=state.finals[k].find(x=>x.id===id);if(m)return m}}
+function options(sel=""){return `<option value="">Seleccionar…</option>`+teamNames.map(n=>`<option ${n===sel?"selected":""}>${esc(n)}</option>`).join("")}
+function playerOpts(team,sel=""){let t=state.teams.find(x=>x.name===team);return `<option value="">Jugador…</option>`+(t?t.players.map(p=>`<option ${p===sel?"selected":""}>${esc(p)}</option>`).join(""):"")}
+function openMatch(id){
+ let m=findMatch(id);if(!m)return;$("#matchTitle").textContent=(m.phase==="swiss"?"Fecha "+m.round:"Fase final")+" · Enfrentamiento";
+ $("#matchEdit").innerHTML=`<div class="grid g2"><div><label>Equipo local</label><select id="mh" class="field">${options(m.home)}</select></div><div><label>Equipo visitante</label><select id="ma" class="field">${options(m.away)}</select></div></div><div class="grid g2"><div><label>Estado</label><select id="ms" class="field"><option value="pending" ${m.status==="pending"?"selected":""}>Pendiente</option><option value="final" ${m.status==="final"?"selected":""}>Finalizado</option><option value="ff" ${m.status==="ff"?"selected":""}>FF</option></select></div><div><label>Ganador FF</label><select id="ff" class="field"><option value="">—</option><option ${m.ffWinner===m.home?"selected":""}>${esc(m.home)}</option><option ${m.ffWinner===m.away?"selected":""}>${esc(m.away)}</option></select></div></div><div class="stitle" style="margin-top:13px"><h2>10 duelos</h2></div><div id="duels">${m.duels.map((d,i)=>`<div class="duel"><b>${i+1}</b><select class="field hp">${playerOpts(m.home,d.hp)}</select><input class="field hg" type="number" min="0" max="99" value="${d.hg}"><b>–</b><input class="field ag" type="number" min="0" max="99" value="${d.ag}"><select class="field ap">${playerOpts(m.away,d.ap)}</select></div>`).join("")}</div><div style="margin-top:12px"><button class="btn jade" id="saveMatch">Guardar enfrentamiento</button></div>`;
+ function rebuildPlayers(){let h=$("#mh").value,a=$("#ma").value;$$(".hp").forEach((s,i)=>s.innerHTML=playerOpts(h,m.duels[i].hp));$$(".ap").forEach((s,i)=>s.innerHTML=playerOpts(a,m.duels[i].ap));$("#ff").innerHTML=`<option value="">—</option><option>${esc(h)}</option><option>${esc(a)}</option>`}
+ $("#mh").onchange=rebuildPlayers;$("#ma").onchange=rebuildPlayers;
+ $("#saveMatch").onclick=()=>{let h=$("#mh").value,a=$("#ma").value,status=$("#ms").value;if(h&&a&&h===a)return toast("Un equipo no puede jugar contra sí mismo");let hp=$$(".hp").map(x=>x.value).filter(Boolean),ap=$$(".ap").map(x=>x.value).filter(Boolean);if(new Set(hp).size!==hp.length||new Set(ap).size!==ap.length)return toast("No repitas jugador en el mismo enfrentamiento");m.home=h;m.away=a;m.status=status;m.ffWinner=$("#ff").value;$$(".duel").forEach((row,i)=>{m.duels[i]={hp:row.querySelector(".hp").value,ap:row.querySelector(".ap").value,hg:+row.querySelector(".hg").value||0,ag:+row.querySelector(".ag").value||0}});if(status==="ff"&&!m.ffWinner)return toast("Selecciona ganador del FF");m.updatedAt=new Date().toISOString();recordAudit(`Resultado actualizado: ${m.home||"?"} vs ${m.away||"?"}`);$("#matchModal").classList.remove("show");renderAll();toast("Enfrentamiento guardado")};
+ $("#matchModal").classList.add("show")
+}
+window.openMatch=openMatch;window.openTeam=openTeam;
+function generateImage(){
+ let st=standings(),c=document.createElement("canvas");c.width=1080;c.height=1920;let x=c.getContext("2d"),g=x.createLinearGradient(0,0,0,1920);g.addColorStop(0,"#082217");g.addColorStop(.45,"#030b07");g.addColorStop(1,"#010403");x.fillStyle=g;x.fillRect(0,0,1080,1920);x.strokeStyle="#d7ad52";x.lineWidth=5;x.strokeRect(28,28,1024,1864);x.textAlign="center";x.fillStyle="#e4bf62";x.font="bold 74px Georgia";x.fillText("DRAKARION POKAL 3",540,130);x.fillStyle="#25f19f";x.font="bold 31px Georgia";x.fillText("DINASTÍA DEL DRAGÓN DE JADE",540,180);x.fillStyle="#a8bcaf";x.font="24px Arial";x.fillText("CLASIFICACIÓN GENERAL",540,228);
+ let y=285,rowH=69;st.forEach((t,i)=>{let col=i===0?"#1b7d46":i<4?"#1c588b":i<12?"#945821":"#7b2929";x.fillStyle=col+"aa";x.fillRect(55,y,970,rowH-5);x.textAlign="left";x.fillStyle="#fff";x.font="bold 26px Arial";x.fillText(String(i+1).padStart(2,"0"),72,y+42);x.font="bold 25px Arial";x.fillText(t.name,130,y+42);x.textAlign="right";x.font="22px Arial";x.fillText(`PJ ${t.pj}   DIF ${t.dif>=0?"+":""}${t.dif}   PTS ${t.pts}`,995,y+42);y+=rowH});
+ x.textAlign="center";x.fillStyle="#d5c17f";x.font="22px Arial";x.fillText("1.º Cuartos + inscripción · 2–4 Cuartos · 5–12 Playoffs · 13–20 Eliminados",540,1770);x.fillStyle="#789486";x.font="19px Arial";x.fillText(new Date().toLocaleString(),540,1825);let a=document.createElement("a");a.href=c.toDataURL("image/png");a.download="drakarion-clasificacion.png";a.click()
+}
+$("#imgBtn").onclick=generateImage;
+let sess=sessionStorage.getItem("drakToken");if(sess) token=sess;
+loadPublic();
+</script>
+</body>
+</html>
