@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06130e">
+<title>DRAKARION POKAL 3</title>
+<style>
+:root{--bg:#030806;--panel:#091710;--panel2:#0d2117;--jade:#25f19f;--jade2:#0ba96c;--gold:#e4bf62;--gold2:#8f6a29;--text:#f5f8f5;--muted:#93aa9d;--green:#25bd65;--blue:#338ad7;--orange:#e18a32;--red:#d54a4a;--line:#244635;--shadow:0 16px 46px #0009}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}body{background:radial-gradient(circle at 50% -20%,#0b57386b,transparent 42%),linear-gradient(#020604,#030806 45%,#020503)}button,input,select{font:inherit}.wrap{max-width:1180px;margin:auto;padding:12px 12px 92px}.top{position:sticky;top:0;z-index:50;background:#030806eF;backdrop-filter:blur(12px);border-bottom:1px solid #8f6a2945}.topin{max-width:1180px;margin:auto;display:flex;gap:10px;align-items:center;padding:9px 12px}.mark{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold);box-shadow:0 0 22px #25f19f55;display:grid;place-items:center;color:var(--jade);font-weight:900}.brand{flex:1}.brand b{font-family:Georgia,serif;color:var(--gold);letter-spacing:.06em}.brand small{display:block;color:var(--muted)}.btn{border:1px solid #2e5a44;background:#0a1d14;color:#eaf6ef;border-radius:11px;padding:9px 12px;font-weight:800;cursor:pointer}.btn:hover{border-color:var(--jade)}.btn.jade{background:linear-gradient(#1ac985,#08774d);border-color:#34efa6;color:#fff}.btn.gold{background:linear-gradient(#b48736,#6c4b18);border-color:#e4bf62;color:white}.btn.red{background:#5c2020;border-color:#a94646}.btn.sm{padding:6px 9px;font-size:12px}.hero{border:1px solid #a77a374c;border-radius:24px;overflow:hidden;padding:28px 18px;background:
+radial-gradient(circle at 15% 20%,#16d98b3d,transparent 22%),
+radial-gradient(circle at 85% 30%,#16d98b2e,transparent 24%),
+linear-gradient(135deg,#071a11,#031008 55%,#0b1b12);box-shadow:var(--shadow);position:relative}.hero:after{content:"";position:absolute;inset:7px;border:1px solid #25f19f29;border-radius:18px;pointer-events:none}.hero h1{margin:0;font-family:Georgia,serif;color:var(--gold);font-size:clamp(30px,7vw,62px);text-shadow:0 4px 20px #000}.hero h2{margin:4px 0 0;color:var(--jade);font-family:Georgia,serif;font-size:clamp(17px,4vw,27px)}.hero p{color:#bfd0c6;max-width:740px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{font-size:11px;border:1px solid #826528;background:#020b07b8;padding:6px 9px;border-radius:999px;color:#ddca8c}.section{margin-top:18px}.stitle{display:flex;align-items:center;gap:9px;margin:0 0 9px}.stitle h2{margin:0;font-family:Georgia,serif;color:var(--gold);font-size:21px}.stitle:after{content:"";height:1px;background:linear-gradient(90deg,#8b672a,transparent);flex:1}.grid{display:grid;gap:10px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.card{background:linear-gradient(#0c1f16,#06110c);border:1px solid #9f79332f;border-radius:16px;padding:13px;box-shadow:0 12px 30px #0004}.stat small{color:var(--muted);text-transform:uppercase;letter-spacing:.07em}.stat strong{display:block;color:var(--gold);font-size:28px;margin-top:3px}.tablewrap{overflow:auto;border:1px solid #9f79332f;border-radius:15px;background:#030b07}table{border-collapse:collapse;width:100%;min-width:760px}th,td{padding:9px 8px;border-bottom:1px solid #25443366;text-align:center;font-size:12px}th{position:sticky;top:0;background:#0e2017;color:#e4c676;z-index:2}td.name{text-align:left;font-weight:850}.teamcell{display:flex;align-items:center;gap:8px}.logo{width:31px;height:31px;object-fit:cover;border-radius:50%;border:1px solid #47705a;background:#10261a}.z1{background:linear-gradient(90deg,#25bd6540,#25bd6509)}.z2{background:linear-gradient(90deg,#338ad73e,#338ad709)}.z3{background:linear-gradient(90deg,#e18a323b,#e18a3208)}.z4{background:linear-gradient(90deg,#d54a4a32,#d54a4a08)}.legend{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px}.legend>div{font-size:10px;border-radius:10px;padding:8px;border:1px solid #ffffff12}.legend b{display:block;font-size:11px}.tabs{display:flex;gap:6px;overflow:auto;padding-bottom:5px}.tab{white-space:nowrap;border:1px solid #31533f;background:#06130d;color:#a9bdb1;border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer}.tab.active{background:#08774d;border-color:#25f19f;color:white}.matches{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.match{border:1px solid #31533f;border-radius:14px;padding:12px;background:#06140e}.mh{display:flex;justify-content:space-between;gap:8px;align-items:center}.score{font-size:22px;color:var(--gold);font-weight:950}.teams{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center;margin:9px 0}.teams .h{text-align:right}.teams .a{text-align:left}.state{font-size:9px;padding:4px 6px;border-radius:999px;background:#26382d;color:#c1d1c7;font-weight:900;text-transform:uppercase}.state.final{background:#12492f;color:#76f6ba}.state.ff{background:#654211;color:#ffd98d}.empty{padding:22px;border:1px dashed #31513f;border-radius:14px;text-align:center;color:#82998c}.teamgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.teamcard{border:1px solid #2a4e3b;background:#07160f;border-radius:15px;padding:11px}.teamcard img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:1px solid #557b66;background:#10271b}.teamcard h3{margin:8px 0 4px}.muted{color:var(--muted);font-size:12px}.nav{position:fixed;bottom:0;left:0;right:0;z-index:60;background:#030806f2;backdrop-filter:blur(13px);border-top:1px solid #8f6a2945;padding-bottom:max(5px,env(safe-area-inset-bottom))}.navin{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(6,1fr)}.nav button{border:0;background:none;color:#81968a;padding:8px 2px;font-size:9px;font-weight:800}.nav button span{display:block;font-size:18px}.nav button.active{color:var(--jade)}.screen{display:none}.screen.active{display:block}.modal{position:fixed;inset:0;z-index:100;background:#000c;display:none;align-items:flex-end;justify-content:center;padding:8px}.modal.show{display:flex}.mbox{width:min(900px,100%);max-height:94vh;overflow:auto;background:linear-gradient(#102319,#05110b);border:1px solid #a57c35;border-radius:20px 20px 12px 12px;padding:14px}.mhead{position:sticky;top:-14px;background:#0d1e16;display:flex;gap:8px;align-items:center;padding:12px 0;z-index:3}.mhead h3{margin:0;flex:1;color:var(--gold)}.field{width:100%;border:1px solid #315743;background:#04110b;color:white;border-radius:10px;padding:9px;outline:none}.field:focus{border-color:var(--jade)}label{display:block;color:#b8cabf;font-size:11px;margin:7px 0 4px}.duel{display:grid;grid-template-columns:28px 1fr 55px 15px 55px 1fr;gap:5px;align-items:center;padding:6px 0;border-bottom:1px solid #ffffff0d}.duel .field{padding:7px;font-size:11px}.roster{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.notice{border-left:4px solid var(--gold);background:#e4bf6212;border-radius:9px;padding:9px 10px;color:#d5c697;font-size:11px}.adminonly{display:none}.admin .adminonly{display:inline-flex}.admin .adminonly.block{display:block}.pubonly{display:block}.admin .pubonly{display:none}.search{width:100%;margin-bottom:9px}.history{font-size:11px}.history div{padding:6px 0;border-bottom:1px solid #ffffff0d}.toast{position:fixed;top:68px;right:10px;z-index:200;background:#10271b;border:1px solid #3f7659;border-radius:11px;padding:10px 12px;box-shadow:var(--shadow);display:none;max-width:320px}.toast.show{display:block}.finalstage{border:1px solid #2f513f;border-radius:14px;padding:11px;background:#07150f;margin-bottom:10px}.finalstage h3{color:var(--gold);margin:0 0 9px}.footer-note{font-size:10px;color:#789084;text-align:center;padding:18px 6px}
+@media(max-width:820px){.g4{grid-template-columns:repeat(2,1fr)}.g3,.g2,.matches,.teamgrid{grid-template-columns:1fr}.legend{grid-template-columns:1fr 1fr}.wrap{padding-left:9px;padding-right:9px}.topin{padding-left:9px;padding-right:9px}.duel{grid-template-columns:24px 1fr 45px 12px 45px 1fr}.roster{grid-template-columns:1fr}.hideMob{display:none}}
+@media(min-width:900px){.nav{position:sticky;top:57px;bottom:auto;border-top:0;border-bottom:1px solid #8f6a2945;margin-bottom:12px}.wrap{padding-bottom:30px}.modal{align-items:center}.mbox{border-radius:20px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="topin">
+  <div class="mark">龍</div>
+  <div class="brand"><b>DRAKARION POKAL 3</b><small>Dinastía del Dragón de Jade</small></div>
+  <button class="btn sm gold" id="adminOpen">🔐 Admin</button>
+  <button class="btn sm red adminonly" id="logout">Salir</button>
+</div></div>
+
+<div class="nav"><div class="navin">
+<button data-s="home" class="active"><span>🐉</span>Inicio</button>
+<button data-s="table"><span>🏆</span>Tabla</button>
+<button data-s="rounds"><span>⚔️</span>Fechas</button>
+<button data-s="finals"><span>👑</span>Finales</button>
+<button data-s="teams"><span>🛡️</span>Equipos</button>
+<button data-s="more"><span>⚙️</span>Más</button>
+</div></div>
+
+<main class="wrap" id="root">
+<section id="home" class="screen active">
+  <div class="hero">
+    <h1>DRAKARION POKAL 3</h1><h2>DINASTÍA DEL DRAGÓN DE JADE</h2>
+    <p>20 clanes. 5 fechas. Una sola dinastía. Tabla, resultados y fase final en vivo.</p>
+    <div class="chips"><span class="chip">20 EQUIPOS</span><span class="chip">5 FECHAS</span><span class="chip">10 VS 10</span><span class="chip">3–1–0</span></div>
+  </div>
+  <div class="section"><div class="stitle"><h2>Estado del torneo</h2></div><div id="stats" class="grid g4"></div></div>
+  <div class="section"><div class="stitle"><h2>Últimos resultados</h2></div><div id="latest" class="matches"></div></div>
+</section>
+
+<section id="table" class="screen">
+ <div class="stitle"><h2>Clasificación general</h2></div>
+ <div class="card"><div class="tablewrap"><table><thead><tr><th>POS</th><th>EQUIPO</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DIF</th><th>PTS</th></tr></thead><tbody id="tbody"></tbody></table></div>
+ <div class="legend"><div class="z1"><b>🟢 1.º</b>Cuartos + inscripción pagada</div><div class="z2"><b>🔵 2.º–4.º</b>Cuartos directos</div><div class="z3"><b>🟠 5.º–12.º</b>Playoffs</div><div class="z4"><b>🔴 13.º–20.º</b>Eliminados</div></div>
+ <div style="margin-top:9px"><button class="btn sm gold" id="imgBtn">📸 Generar imagen 9:16</button></div></div>
+</section>
+
+<section id="rounds" class="screen">
+ <div class="stitle"><h2>Fechas</h2></div><div class="tabs" id="roundTabs"></div><div id="roundMatches" class="matches"></div>
+</section>
+
+<section id="finals" class="screen">
+ <div class="stitle"><h2>Fase final</h2></div>
+ <div class="notice">1–4 directo a cuartos · 5–12 playoffs · los cruces se eligen manualmente.</div>
+ <div id="finalWrap" style="margin-top:10px"></div>
+</section>
+
+<section id="teams" class="screen">
+ <div class="stitle"><h2>Equipos y plantillas</h2></div>
+ <input id="teamSearch" class="field search" placeholder="Buscar equipo o jugador…">
+ <div id="teamGrid" class="teamgrid"></div>
+</section>
+
+<section id="more" class="screen">
+ <div class="stitle"><h2>Administración</h2></div>
+ <div class="card">
+   <div class="pubonly notice">La web pública es de solo lectura. Para editar necesitas entrar como administrador.</div>
+   <div class="adminonly block">
+     <h3 style="color:var(--gold)">Modo administrador</h3>
+     <p class="muted">Tus cambios quedan como borrador hasta que pulses <b>Publicar cambios</b>. Entonces se guardan en este repositorio de GitHub y todos los espectadores los verán.</p>
+     <button class="btn jade" id="publishBtn">🚀 Publicar cambios</button>
+     <button class="btn" id="reloadBtn">↻ Recargar datos públicos</button>
+     <button class="btn" id="exportBtn">⬇️ Copia JSON</button>
+     <label>Importar copia JSON</label><input type="file" id="importFile" class="field" accept=".json,application/json">
+   </div>
+ </div>
+ <div class="section"><div class="stitle"><h2>Historial reciente</h2></div><div class="card history" id="audit"></div></div>
+ <div class="footer-note">Drakarion Pokal 3 · GitHub Pages · Sin servidor de pago</div>
+</section>
+</main>
+
+<div class="modal" id="adminModal"><div class="mbox">
+ <div class="mhead"><h3>Acceso administrador</h3><button class="btn sm" data-close="adminModal">✕</button></div>
+ <div class="notice">El PIN es tu acceso visual. La seguridad real de escritura la da un token de GitHub limitado únicamente a este repositorio. El token se guarda solo en esta pestaña del navegador.</div>
+ <label>PIN de 6 dígitos</label><input id="pin" class="field" inputmode="numeric" maxlength="6" placeholder="••••••">
+ <label>GitHub Fine-grained token</label><input id="token" class="field" type="password" placeholder="github_pat_...">
+ <div style="margin-top:10px"><button class="btn jade" id="adminLogin">Entrar</button></div>
+</div></div>
+
+<div class="modal" id="teamModal"><div class="mbox">
+ <div class="mhead"><h3 id="teamTitle">Equipo</h3><button class="btn sm" data-close="teamModal">✕</button></div>
+ <div id="teamEdit"></div>
+</div></div>
+
+<div class="modal" id="matchModal"><div class="mbox">
+ <div class="mhead"><h3 id="matchTitle">Enfrentamiento</h3><button class="btn sm" data-close="matchModal">✕</button></div>
+ <div id="matchEdit"></div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const OWNER="alezozo",REPO="drakarion-pokal-3",BRANCH="main",PIN="135790";
+const teamNames=["Goltyn","The Best","Dogos","Taruzz","Legendarios","VIP Family","AFL","Hernandez","Resistencia","Gods Nahi","Rumbo a LATAM","Requiem","El Congreso","God Level","Vortex","HSV 98 Prime","Halcones","Team Titan","HSV 98","Gods Plan"];
+const f1=[["Goltyn","The Best"],["Dogos","Taruzz"],["Legendarios","VIP Family"],["AFL","Hernandez"],["Resistencia","Gods Nahi"],["Rumbo a LATAM","Requiem"],["El Congreso","God Level"],["Vortex","HSV 98 Prime"],["Halcones","Team Titan"],["HSV 98","Gods Plan"]];
+function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
+function blankMatch(round,phase="swiss",pair=null){return{id:uid(),phase,round,home:pair?pair[0]:"",away:pair?pair[1]:"",status:"pending",ffWinner:"",duels:Array.from({length:10},()=>({hp:"",ap:"",hg:0,ag:0})),updatedAt:null}}
+function makeDefault(){
+ const teams=teamNames.map(n=>({name:n,logo:"",players:Array.from({length:12},(_,i)=>"Jugador "+(i+1))}));
+ const rounds=Array.from({length:5},(_,r)=>Array.from({length:10},(_,i)=>blankMatch(r+1,"swiss",r===0?f1[i]:null)));
+ const finals={playoff:Array.from({length:4},()=>blankMatch(1,"playoff")),quarter:Array.from({length:4},()=>blankMatch(1,"quarter")),semi:Array.from({length:2},()=>blankMatch(1,"semi")),final:[blankMatch(1,"final")]};
+ return{version:1,teams,rounds,finals,audit:[{at:new Date().toISOString(),text:"Torneo creado"}],publishedAt:null};
+}
+let state=makeDefault(),currentRound=1,isAdmin=false,token="";
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function toast(s){let t=$("#toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
+function logoOf(name){return state.teams.find(t=>t.name===name)?.logo||""}
+function initials(n){return (n||"?").split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
+function logoHTML(n){let l=logoOf(n);return l?`<img class="logo" src="${l}">`:`<span class="logo" style="display:grid;place-items:center;font-size:10px;font-weight:900">${esc(initials(n))}</span>`}
+function allSwiss(){return state.rounds.flat()}
+function calcScore(m){if(m.status==="ff"){return m.ffWinner===m.home?[1,0]:m.ffWinner===m.away?[0,1]:[0,0]}return m.duels.reduce((a,d)=>[a[0]+(+d.hg||0),a[1]+(+d.ag||0)],[0,0])}
+function finished(m){return m.status==="final"||m.status==="ff"}
+function standings(){
+ let x=Object.fromEntries(teamNames.map(n=>[n,{name:n,pj:0,pg:0,pe:0,pp:0,gf:0,gc:0,dif:0,pts:0}]));
+ for(let m of allSwiss().filter(finished)){if(!m.home||!m.away||!x[m.home]||!x[m.away])continue;let[a,b]=calcScore(m),h=x[m.home],v=x[m.away];h.pj++;v.pj++;h.gf+=a;h.gc+=b;v.gf+=b;v.gc+=a;if(a>b){h.pg++;v.pp++;h.pts+=3}else if(a<b){v.pg++;h.pp++;v.pts+=3}else{h.pe++;v.pe++;h.pts++;v.pts++}}
+ Object.values(x).forEach(t=>t.dif=t.gf-t.gc);
+ let arr=Object.values(x);
+ const h2h=(a,b)=>{let m=allSwiss().find(m=>finished(m)&&((m.home===a.name&&m.away===b.name)||(m.home===b.name&&m.away===a.name)));if(!m)return 0;let[s1,s2]=calcScore(m),as=a.name===m.home?s1:s2,bs=b.name===m.home?s1:s2;return bs-as}
+ arr.sort((a,b)=>b.pts-a.pts||b.dif-a.dif||b.gf-a.gf||a.gc-b.gc||h2h(a,b)||a.name.localeCompare(b.name));
+ return arr;
+}
+function zone(i){return i===0?"z1":i<4?"z2":i<12?"z3":"z4"}
+function recordAudit(text){state.audit.unshift({at:new Date().toISOString(),text});state.audit=state.audit.slice(0,60);saveDraft()}
+function saveDraft(){if(isAdmin)localStorage.setItem("drakDraft",JSON.stringify(state))}
+function setAdmin(v){isAdmin=v;document.body.classList.toggle("admin",v);$("#adminOpen").style.display=v?"none":"";renderAll()}
+async function loadPublic(){
+ try{let r=await fetch("./data.json?ts="+Date.now(),{cache:"no-store"});if(r.ok){state=await r.json();toast("Datos públicos cargados")}else{state=makeDefault()}}catch{state=makeDefault()}
+ if(isAdmin){let d=localStorage.getItem("drakDraft");if(d)try{state=JSON.parse(d)}catch{}}
+ renderAll()
+}
+function utf8b64(s){let bytes=new TextEncoder().encode(s),bin="";for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(bin)}
+async function publish(){
+ if(!isAdmin||!token)return toast("Entra como administrador");
+ let path="data.json",api=`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+ let sha=null;try{let g=await fetch(api,{headers:{Authorization:`Bearer ${token}`,Accept:"application/vnd.github+json"}});if(g.ok)sha=(await g.json()).sha}catch{}
+ state.publishedAt=new Date().toISOString();
+ let body={message:"Actualizar Drakarion Pokal 3",content:utf8b64(JSON.stringify(state)),branch:BRANCH};if(sha)body.sha=sha;
+ let r=await fetch(api,{method:"PUT",headers:{Authorization:`Bearer ${token}`,Accept:"application/vnd.github+json","Content-Type":"application/json"},body:JSON.stringify(body)});
+ if(!r.ok){let e=await r.text();console.error(e);return toast("No se pudo publicar. Revisa el token")}
+ localStorage.setItem("drakDraft",JSON.stringify(state));toast("✅ Cambios publicados para todos");renderAll()
+}
+function nav(s){$$(".screen").forEach(x=>x.classList.toggle("active",x.id===s));$$(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.s===s));window.scrollTo(0,0)}
+$$(".nav button").forEach(b=>b.onclick=()=>nav(b.dataset.s));
+$$("[data-close]").forEach(b=>b.onclick=()=>$("#"+b.dataset.close).classList.remove("show"));
+$("#adminOpen").onclick=()=>$("#adminModal").classList.add("show");
+$("#adminLogin").onclick=()=>{let p=$("#pin").value.trim(),t=$("#token").value.trim();if(p!==PIN)return toast("PIN incorrecto");if(!t.startsWith("github_"))return toast("Pega tu token de GitHub");token=t;sessionStorage.setItem("drakToken",t);setAdmin(true);$("#adminModal").classList.remove("show");let d=localStorage.getItem("drakDraft");if(d)try{state=JSON.parse(d)}catch{};renderAll();toast("Modo administrador activado")};
+$("#logout").onclick=()=>{token="";sessionStorage.removeItem("drakToken");setAdmin(false);loadPublic()};
+$("#publishBtn").onclick=publish;$("#reloadBtn").onclick=()=>{localStorage.removeItem("drakDraft");loadPublic()};
+$("#exportBtn").onclick=()=>{let b=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="drakarion-backup.json";a.click
