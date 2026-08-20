@@ -84,8 +84,30 @@ function card(m){let[a,b]=score(m),has=(m.duels||[]).some(d=>d.hg||d.ag);const h
 function render(){if(!state)return;let st=stand(),done=state.rounds.flat().filter(finished);$("#stats").innerHTML=[["Líder",st[0]?.name||"—"],["Fecha",Math.min(5,(state.rounds.findIndex(r=>r.some(m=>!finished(m)))+1)||5)+"/5"],["Finalizados",done.length+"/50"],["Equipos","20"]].map(x=>`<div class="card stat"><small>${x[0]}</small><strong style="font-size:${String(x[1]).length>14?"16px":"24px"}">${esc(x[1])}</strong></div>`).join("");$("#latest").innerHTML=done.length?[...done].sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||"")).slice(0,6).map(card).join(""):`<div class="empty">Sin resultados todavía.</div>`;$("#tbody").innerHTML=st.map((x,i)=>`<tr class="${z(i)}"><td>${i+1}</td><td class="name"><div class="teamcell">${logoHTML(x.name)}<span>${esc(x.name)}</span></div></td><td>${x.pj}</td><td>${x.pg}</td><td>${x.pe}</td><td>${x.pp}</td><td>${x.gf}</td><td>${x.gc}</td><td>${x.dif>0?"+":""}${x.dif}</td><td><b>${x.pts}</b></td></tr>`).join("");renderRound();$("#finalWrap").innerHTML=[["playoff","PLAYOFFS"],["quarter","CUARTOS"],["semi","SEMIFINALES"],["final","GRAN FINAL"]].map(([k,t])=>`<div class="finalstage"><h3>${t}</h3><div class="matches">${(state.finals[k]||[]).map(card).join("")}</div></div>`).join("");renderTeams($("#search").value||"");$("#audit").innerHTML=(state.audit||[]).slice(0,20).map(a=>`<div>${new Date(a.at).toLocaleString()}<br>${esc(a.text)}</div>`).join("");$("#saved").textContent=state.lastSaved?"Última publicación: "+new Date(state.lastSaved).toLocaleString():"";navigate(activeScreen,false)}
 function renderRound(){$("#tabs").innerHTML=Array.from({length:5},(_,i)=>`<button class="tab ${currentRound===i+1?"active":""}" onclick="selRound(${i+1})">Fecha ${i+1}</button>`).join("");$("#roundMatches").innerHTML=state.rounds[currentRound-1].map(card).join("")}
 window.selRound=n=>{currentRound=n;renderRound();navigate("rounds")}
-function renderTeams(q=""){q=q.toLowerCase();$("#teamGrid").innerHTML=state.teams.filter(t=>!q||t.name.toLowerCase().includes(q)||t.players.some(p=>p.toLowerCase().includes(q))).map(t=>`<div class="teamcard">${logoHTML(t.name,"biglogo")}<h3>${esc(t.name)}</h3><div class="history">${t.players.filter(Boolean).length}/12 jugadores</div>${admin?`<button class="btn sm jade" onclick="openTeam('${encodeURIComponent(t.name)}')">Editar equipo</button>`:""}</div>`).join("")}
+function renderTeams(q=""){q=q.toLowerCase();$("#teamGrid").innerHTML=state.teams.filter(t=>!q||t.name.toLowerCase().includes(q)||t.players.some(p=>p.toLowerCase().includes(q))).map(t=>`<div class="teamcard">${logoHTML(t.name,"biglogo")}<h3>${esc(t.name)}</h3><div class="history">${t.players.filter(Boolean).length}/12 jugadores</div><button class="btn sm gold" onclick="openRoster('${encodeURIComponent(t.name)}')">👥 Ver plantilla</button>${admin?`<button class="btn sm jade" onclick="openTeam('${encodeURIComponent(t.name)}')">✏️ Editar equipo</button>`:""}</div>`).join("")}
 $("#search").oninput=e=>renderTeams(e.target.value);
+
+window.openRoster=enc=>{
+  const n=decodeURIComponent(enc),t=teamByName(n);
+  if(!t)return;
+  $("#teamTitle").textContent=n+" · Plantilla";
+  $("#teamEdit").innerHTML=`
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+      ${logoHTML(n,"biglogo")}
+      <div>
+        <h3 style="margin:0;color:#e4bd60">${esc(n)}</h3>
+        <div>Plantilla oficial · 12 jugadores</div>
+      </div>
+    </div>
+    <div class="roster">
+      ${t.players.slice(0,12).map((p,i)=>`
+        <div class="card" style="padding:9px">
+          <small style="color:#91a99b">Jugador ${i+1}</small>
+          <div style="font-weight:800;margin-top:3px">${esc(p||"Sin registrar")}</div>
+        </div>`).join("")}
+    </div>`;
+  $("#teamModal").classList.add("show");
+};
 
 async function commitMain(msg){
   const payload=cleanState(),at=new Date().toISOString();
