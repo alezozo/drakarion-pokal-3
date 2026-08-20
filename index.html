@@ -91,7 +91,7 @@ async function commitMain(msg){
   const payload=cleanState(),at=new Date().toISOString();
   payload.lastSaved=at;
   payload.audit=[{at,text:msg},...(payload.audit||[])].slice(0,80);
-  await setDoc(REF,{state:payload});
+  await setDoc(REF,{stateJson:JSON.stringify(payload)});
   state=normalizeState(payload);
 }
 async function commitLogos(){
@@ -139,7 +139,7 @@ $("#loginBtn").onclick=async()=>{try{await signInWithEmailAndPassword(auth,$("#e
 $("#logoutBtn").onclick=()=>signOut(auth);
 $("#publishBtn").onclick=()=>save("Publicación manual",{logos:true});
 onAuthStateChanged(auth,u=>{admin=!!u;$("#loginBox").style.display=admin?"none":"block";$("#adminBox").style.display=admin?"block":"none";$("#modeBadge").textContent=admin?"🔓 ADMIN":"🌐 EN VIVO";render()});
-onSnapshot(REF,s=>{state=normalizeState(s.exists()?s.data().state:def());render()},e=>{console.error(e);state=normalizeState(def());render();toast("No se pudo leer el torneo: "+String(e.code||""))});
+onSnapshot(REF,s=>{if(s.exists()){const d=s.data()||{};try{state=normalizeState(d.stateJson?JSON.parse(d.stateJson):d.state)}catch(err){console.error(err);state=normalizeState(def())}}else state=normalizeState(def());render()},e=>{console.error(e);state=normalizeState(def());render();toast("No se pudo leer el torneo: "+String(e.code||""))});
 onSnapshot(LOGOS_REF,s=>{
   if(s.exists()){
     const d=s.data()||{};
