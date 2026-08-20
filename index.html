@@ -208,11 +208,11 @@ const firebaseConfig={
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
 const REF=doc(db,"tournament","main");
 const LOGOS_REF=doc(db,"tournament","logos");
-
+const ROSTERS_REF=doc(db,"tournament","rosters");
 const names=["Goltyn","The Best","Dogos","Taruzz","Legendarios","VIP Family","AFL","Hernandez","Resistencia","Gods Nahi","Rumbo a LATAM","Requiem","El Congreso","God Level","Vortex","HSV 98 Prime","Halcones","Team Titan","HSV 98","Gods Plan"];
 const f1=[["Goltyn","The Best"],["Dogos","Taruzz"],["Legendarios","VIP Family"],["AFL","Hernandez"],["Resistencia","Gods Nahi"],["Rumbo a LATAM","Requiem"],["El Congreso","God Level"],["Vortex","HSV 98 Prime"],["Halcones","Team Titan"],["HSV 98","Gods Plan"]];
 const screens=new Set(["home","table","rounds","finals","teams","settings"]);
-let state=null,logoMap={},admin=false,currentRound=1,activeScreen=screens.has(location.hash.slice(1))?location.hash.slice(1):"home";
+let state=null,logoMap={},rosterMap={},admin=false,currentRound=1,activeScreen=screens.has(location.hash.slice(1))?location.hash.slice(1):"home";
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const uid=()=>Math.random().toString(36).slice(2)+Date.now().toString(36);
@@ -228,7 +228,7 @@ function normalizeState(s){
   if(!s||!Array.isArray(s.teams)||!Array.isArray(s.rounds))s=def();
   const oldTeams=Array.isArray(s.teams)?s.teams:[];
   for(const t of oldTeams){if(t?.name&&t?.logo&&!logoMap[t.name])logoMap[t.name]=t.logo}
-  s.teams=names.map(n=>{const t=oldTeams.find(x=>x.name===n);let players=Array.isArray(t?.players)?t.players.slice(0,12):[];while(players.length<12)players.push("Jugador "+(players.length+1));return{name:n,players}});
+  s.teams=names.map(n=>{const t=oldTeams.find(x=>x.name===n);let players=Array.isArray(rosterMap[n])?rosterMap[n].slice(0,12):Array.isArray(t?.players)?t.players.slice(0,12):[];while(players.length<12)players.push("Jugador "+(players.length+1));return{name:n,players}});
   s.audit=Array.isArray(s.audit)?s.audit:[];
   s.finals=s.finals||def().finals;
   return s;
@@ -291,6 +291,34 @@ async function commitLogos(){
     updatedAt:new Date().toISOString()
   });
 }
+  async function saveTeamOnly(name,players,draftLogo){
+  if(!admin){toast("Solo administrador");return false}
+  try{
+    const cleanPlayers=players.slice(0,12).map((p,i)=>String(p||"").trim()||"Jugador "+(i+1));
+
+    await setDoc(
+      ROSTERS_REF,
+      {[encodeURIComponent(name)]:cleanPlayers},
+      {merge:true}
+    );
+
+    rosterMap[name]=cleanPlayers;
+
+    const t=teamByName(name);
+    if(t)t.players=[...cleanPlayers];
+
+    logoMap[name]=typeof draftLogo==="string"?draftLogo:"";
+    await commitLogos();
+
+    toast("✅ Plantilla guardada sin tocar las demás");
+    render();
+    return true;
+  }catch(e){
+    console.error("TEAM SAVE ERROR",e);
+    toast(errText(e));
+    return false;
+  }
+}
 async function save(msg,{logos=false}={}){
   if(!admin){toast("Solo administrador");return false}
   try{
@@ -317,7 +345,14 @@ function find(id){for(const r of state.rounds){const m=r.find(x=>x.id===id);if(m
 window.openMatch=id=>{let m=find(id);if(!m)return;$("#matchTitle").textContent="Enfrentamiento";$("#matchEdit").innerHTML=`<label>Local</label><select id="mh" class="field">${teamOpts(m.home)}</select><label>Visitante</label><select id="ma" class="field">${teamOpts(m.away)}</select><label>Estado</label><select id="ms" class="field"><option value="pending" ${m.status==="pending"?"selected":""}>Pendiente</option><option value="final" ${m.status==="final"?"selected":""}>Finalizado</option><option value="ff" ${m.status==="ff"?"selected":""}>FF</option></select><label>Ganador FF</label><select id="ff" class="field"><option value="">—</option><option value="${esc(m.home)}" ${m.ffWinner===m.home?"selected":""}>${esc(m.home)}</option><option value="${esc(m.away)}" ${m.ffWinner===m.away?"selected":""}>${esc(m.away)}</option></select><div style="margin-top:8px">${m.duels.map((d,i)=>`<div class="duel"><b>${i+1}</b><select class="field hp">${playerOpts(m.home,d.hp)}</select><input class="field hg" type="number" min="0" value="${d.hg}"><b>–</b><input class="field ag" type="number" min="0" value="${d.ag}"><select class="field ap">${playerOpts(m.away,d.ap)}</select></div>`).join("")}</div><button id="sm" class="btn jade" style="margin-top:8px">Guardar</button>`;$("#sm").onclick=async()=>{const h=$("#mh").value,a=$("#ma").value,s=$("#ms").value,w=$("#ff").value;if(!h||!a)return toast("Selecciona equipos");if(h===a)return toast("No puede jugar un equipo contra sí mismo");if(s==="ff"&&!w)return toast("Selecciona ganador FF");m.home=h;m.away=a;m.status=s;m.ffWinner=w;$$('.duel').forEach((r,i)=>m.duels[i]={hp:r.querySelector('.hp').value,ap:r.querySelector('.ap').value,hg:Math.max(0,+r.querySelector('.hg').value||0),ag:Math.max(0,+r.querySelector('.ag').value||0)});m.updatedAt=new Date().toISOString();if(await save(`Resultado: ${h} vs ${a}`)){$("#matchModal").classList.remove("show");navigate("rounds")}};$("#matchModal").classList.add("show")};
 
 function compressImage(file){return new Promise((resolve,reject)=>{const fr=new FileReader();fr.onerror=reject;fr.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const size=112,c=document.createElement("canvas");c.width=size;c.height=size;const ctx=c.getContext("2d"),ratio=Math.max(size/img.width,size/img.height),w=img.width*ratio,h=img.height*ratio;ctx.fillStyle="#10241a";ctx.fillRect(0,0,size,size);ctx.drawImage(img,(size-w)/2,(size-h)/2,w,h);resolve(c.toDataURL("image/jpeg",0.55))};img.src=fr.result};fr.readAsDataURL(file)})}
-window.openTeam=enc=>{const n=decodeURIComponent(enc),t=teamByName(n);if(!t)return;let draftLogo=logoMap[n]||"";$("#teamTitle").textContent=n;$("#teamEdit").innerHTML=`<div style="display:flex;gap:12px;align-items:center"><div id="logoPreview">${logoHTML(n,"biglogo")}</div><div style="flex:1"><label>Subir logo</label><input id="logoFile" class="field" type="file" accept="image/*"><button id="delLogo" class="btn sm red" style="margin-top:6px">Quitar logo</button></div></div><div class="notice" style="margin-top:8px">El logo se guarda separado de los resultados para evitar errores de Firebase.</div><div class="roster" style="margin-top:10px">${t.players.map((p,i)=>`<div><label>Jugador ${i+1}</label><input class="field pi" data-i="${i}" value="${esc(p)}"></div>`).join("")}</div><button id="st" class="btn jade" style="margin-top:8px">Guardar equipo</button>`;$("#logoFile").onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{draftLogo=await compressImage(f);$("#logoPreview").innerHTML=draftLogo?`<img class="biglogo" src="${draftLogo}" alt="">`:logoHTML(n,"biglogo");toast("Logo listo. Pulsa Guardar equipo.")}catch(err){console.error(err);toast("No se pudo procesar el logo")}};$("#delLogo").onclick=()=>{draftLogo="";$("#logoPreview").innerHTML=`<span class="biglogo">${esc(initials(n))}</span>`};$("#st").onclick=async()=>{$$(".pi").forEach(i=>t.players[+i.dataset.i]=i.value.trim()||"Jugador "+(+i.dataset.i+1));logoMap[n]=typeof draftLogo==="string"?draftLogo:"";if(await save("Equipo actualizado: "+n,{logos:true})){$("#teamModal").classList.remove("show");navigate("teams")}};$("#teamModal").classList.add("show")};
+window.openTeam=enc=>{const n=decodeURIComponent(enc),t=teamByName(n);if(!t)return;let draftLogo=logoMap[n]||"";$("#teamTitle").textContent=n;$("#teamEdit").innerHTML=`<div style="display:flex;gap:12px;align-items:center"><div id="logoPreview">${logoHTML(n,"biglogo")}</div><div style="flex:1"><label>Subir logo</label><input id="logoFile" class="field" type="file" accept="image/*"><button id="delLogo" class="btn sm red" style="margin-top:6px">Quitar logo</button></div></div><div class="notice" style="margin-top:8px">El logo se guarda separado de los resultados para evitar errores de Firebase.</div><div class="roster" style="margin-top:10px">${t.players.map((p,i)=>`<div><label>Jugador ${i+1}</label><input class="field pi" data-i="${i}" value="${esc(p)}"></div>`).join("")}</div><button id="st" class="btn jade" style="margin-top:8px">Guardar equipo</button>`;$("#logoFile").onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{draftLogo=await compressImage(f);$("#logoPreview").innerHTML=draftLogo?`<img class="biglogo" src="${draftLogo}" alt="">`:logoHTML(n,"biglogo");toast("Logo listo. Pulsa Guardar equipo.")}catch(err){console.error(err);toast("No se pudo procesar el logo")}};$("#delLogo").onclick=()=>{draftLogo="";$("#logoPreview").innerHTML=`<span class="biglogo">${esc(initials(n))}</span>`};$("#st").onclick=async()=>{
+  const players=$$(".pi").map((i,idx)=>i.value.trim()||"Jugador "+(idx+1));
+
+  if(await saveTeamOnly(n,players,draftLogo)){
+    $("#teamModal").classList.remove("show");
+    navigate("teams");
+  }
+};$("#teamModal").classList.add("show")};
 
 $$('[data-close]').forEach(b=>b.onclick=()=>$("#"+b.dataset.close).classList.remove('show'));
 $$('.nav button').forEach(b=>b.onclick=()=>navigate(b.dataset.s));
@@ -325,7 +360,42 @@ $("#loginBtn").onclick=async()=>{try{await signInWithEmailAndPassword(auth,$("#e
 $("#logoutBtn").onclick=()=>signOut(auth);
 $("#publishBtn").onclick=()=>save("Publicación manual",{logos:true});
 onAuthStateChanged(auth,u=>{admin=!!u;$("#loginBox").style.display=admin?"none":"block";$("#adminBox").style.display=admin?"block":"none";$("#modeBadge").textContent=admin?"🔓 ADMIN":"🌐 EN VIVO";render()});
-onSnapshot(REF,s=>{if(s.exists()){const d=s.data()||{};try{state=normalizeState(d.stateJson?JSON.parse(d.stateJson):d.state)}catch(err){console.error(err);state=normalizeState(def())}}else state=normalizeState(def());render()},e=>{console.error(e);state=normalizeState(def());render();toast("No se pudo leer el torneo: "+String(e.code||""))});
+onSnapshot(REF,s=>{if(s.exists()){const d=s.data()||{};try{state=normalizeState(d.stateJson?JSON.parse(d.stateJson):d.state)}catch(err){console.error(err);state=normalizeState(def())}}else state=normalizeState(def());render()},e=>{console.error(e);state=normalizeState(def());render();toast("No se pudo leer el torneo: "+String(e.code||""))});onSnapshot(ROSTERS_REF,s=>{
+  if(s.exists()){
+    const d=s.data()||{};
+    const next={};
+
+    for(const name of names){
+      const v=d[encodeURIComponent(name)];
+
+      if(Array.isArray(v)){
+        let players=v.slice(0,12).map((p,i)=>String(p||"").trim()||"Jugador "+(i+1));
+
+        while(players.length<12){
+          players.push("Jugador "+(players.length+1));
+        }
+
+        next[name]=players;
+      }
+    }
+
+    rosterMap=next;
+
+    if(state){
+      for(const name of names){
+        if(!rosterMap[name])continue;
+
+        const t=teamByName(name);
+        if(t)t.players=[...rosterMap[name]];
+      }
+
+      render();
+    }
+  }
+},e=>{
+  console.error("ROSTERS READ ERROR",e);
+  toast("No se pudieron leer las plantillas: "+String(e.code||""));
+});
 onSnapshot(LOGOS_REF,s=>{
   if(s.exists()){
     const d=s.data()||{};
